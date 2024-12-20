@@ -26,20 +26,24 @@ int main()
 			{
 			// nothing (continues moving)
 			} while (edubotLib->getSonar(3) > 0.2 || edubotLib->getSonar(0) > 0.2 || edubotLib->getSonar(6) > 0.2);
+			// enquanto sonar da frente, direita ou esquerda estiverem a mais de 20cm de obstáculo
 
 			edubotLib->sleepMilliseconds(2000);
+
+			// se sonar da frente & sonar da esquerda estiverem a menos de 20cm de obstáculo
+			if (edubotLib->getSonar(3) <= 0.2 && edubotLib->getSonar(0) <= 0.2)
+			{
+				edubotLib->rotate(90); // vira pra direita
+			}
 			
-			if (edubotLib->getSonar(3) <= 0.2 || edubotLib->getSonar(0) <= 0.2)
+			// se sonar da frente & sonar da direita estiverem a menos de 20cm de obstáculo
+			if(edubotLib->getSonar(3) <= 0.2 && edubotLib->getSonar(6) <= 0.2)
 			{
-				edubotLib->rotate(90);
+				edubotLib->rotate(-90); // vira pra esquerda
 			}
 
-			if(edubotLib->getSonar(3) <= 0.2 || edubotLib->getSonar(6) <= 0.2)
-			{
-				edubotLib->rotate(-90);
-			}
-
-			if(edubotLib->getSonar(0) <= 0.2 || edubotLib->getSonar(6) <= 0.2)
+			// se sonar da esquerda & sonar da direita estiverem a menos de 20cm de obstáculo
+			if(edubotLib->getSonar(0) <= 0.2 && edubotLib->getSonar(6) <= 0.2)
 			{
 				do
 				{
@@ -47,12 +51,13 @@ int main()
 				} while (edubotLib->getSonar(3) > 0.2);
 			}
 
+			// se sonar da esquerda & sonar da direita estiverem a mais de 20cm de obstáculo
 			if((edubotLib->getSonar(0) > 0.2) && (edubotLib->getSonar(6)))
 			{
-				if((1 + (rand() % (2))) == LEFT)
+				if((1 + (rand() % (2))) == LEFT) // direção aleatória
 				{
-					edubotLib->rotate(-90)
-				} else edubotLib->rotate(90);
+					edubotLib->rotate(-90) // vira pra esquerda
+				} else edubotLib->rotate(90); // senão vai pra direita
 			}
 
 			edubotLib->sleepMilliseconds(2000);
