@@ -3,6 +3,9 @@
 #include <time.h>
 #include "libs/EdubotLib.hpp"
 
+#define LEFT 1
+#define RIGHT 2
+
 int main()
 {
 	using namespace std;
@@ -24,13 +27,32 @@ int main()
 			// nothing (continues moving)
 			} while (edubotLib->getSonar(3) > 0.2 || edubotLib->getSonar(0) > 0.2 || edubotLib->getSonar(6) > 0.2);
 
-			if (edubotLib->getSonar(3) <= 0.02)
+			edubotLib->sleepMilliseconds(2000);
+			
+			if (edubotLib->getSonar(3) <= 0.2 || edubotLib->getSonar(0) <= 0.2)
 			{
-				if (1 + (rand() % (2)) == 1)
-					edubotLib->rotate(-90);
-				else
-					// if (1 + (rand() % (2)) == 2)
-					edubotLib->rotate(90);
+				edubotLib->rotate(90);
+			}
+
+			if(edubotLib->getSonar(3) <= 0.2 || edubotLib->getSonar(6) <= 0.2)
+			{
+				edubotLib->rotate(-90);
+			}
+
+			if(edubotLib->getSonar(0) <= 0.2 || edubotLib->getSonar(6) <= 0.2)
+			{
+				do
+				{
+				// nothing (continues moving)
+				} while (edubotLib->getSonar(3) > 0.2);
+			}
+
+			if((edubotLib->getSonar(0) > 0.2) && (edubotLib->getSonar(6)))
+			{
+				if((1 + (rand() % (2))) == LEFT)
+				{
+					edubotLib->rotate(-90)
+				} else edubotLib->rotate(90);
 			}
 
 			edubotLib->sleepMilliseconds(2000);
@@ -42,4 +64,5 @@ int main()
 		cout << "Could not connect to robot!" << endl;
 
 	return 0;
+	
 }
