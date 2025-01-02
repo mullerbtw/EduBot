@@ -52,7 +52,7 @@ int main()
 			}
 
 			// se sonar da esquerda & sonar da direita estiverem a mais de 20cm de obstáculo
-			if((edubotLib->getSonar(0) > 0.2) && (edubotLib->getSonar(6)))
+			if((edubotLib->getSonar(0) > 0.2) && (edubotLib->getSonar(6) > 0.2)) // esse segundo parâmetro tá faltando algo
 			{
 				if((1 + (rand() % (2))) == LEFT) // direção aleatória
 				{
